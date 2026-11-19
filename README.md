@@ -1,91 +1,132 @@
-# WeatherSphere
+# WeatherSphere 🌦️
 
-**One Planet. Every Forecast.**
-
-A simple full-stack weather intelligence dashboard built with the MERN stack.
+A weather application that provides real-time weather information, a 5-day forecast, air quality details, and saved weather records.
 
 ## Features
 
-- Search any city worldwide
-- Current weather (temperature, feels like, humidity, wind)
-- 5-day forecast
+- Search weather for cities worldwide
+- View current temperature, feels-like temperature, humidity, and wind speed
+- 5-day weather forecast
 - Air Quality Index (AQI)
+- Detect current location using GPS
 - Save weather records to MongoDB
-- View saved records
-- Clean modern dark UI
+- View and delete saved records
+- Export records in JSON and CSV formats
+- Responsive dark-themed interface
 
 ## Tech Stack
 
-- **Frontend**: React + Vite + plain CSS
-- **Backend**: Node.js + Express
-- **Database**: MongoDB Atlas
-- **Weather Data**: Open-Meteo (free, no API key required)
+**Frontend:** React, Vite, CSS  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB Community Server (Local)  
+**ODM:** Mongoose  
+**Weather Data:** Open-Meteo API
 
 ## Project Structure
 
-```
+```text
 weather-sphere/
-├── backend/
-│   ├── server.js
-│   ├── models.js
-│   ├── weather.js
-│   ├── package.json
-│   └── .env
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── style.css
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── .gitignore
-└── README.md
+├── client/          # React frontend
+├── server/          # Express backend
+├── README.md
+└── .gitignore
 ```
 
-## Setup Instructions
+## Requirements
 
-### 1. MongoDB Atlas
+- Node.js and npm
+- MongoDB Community Server
+- Git
 
-1. Create a free account at https://www.mongodb.com/cloud/atlas
-2. Create a free cluster
-3. Create a database user
-4. Allow network access from anywhere (0.0.0.0/0)
-5. Copy the connection string
-6. Paste it in `backend/.env` replacing the placeholder
+## Installation and Setup
 
-### 2. Backend
+### 1. Clone the repository
 
 ```bash
-cd backend
-npm install
-node server.js
+git clone https://github.com/aryanpm28/weather-sphere.git
+cd weather-sphere
 ```
 
-Server will run on http://localhost:5000
+### 2. Start MongoDB
 
-### 3. Frontend
+Make sure the local MongoDB service is running.
+
+### 3. Configure the backend
+
+Open the server folder:
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file inside the server folder:
+
+```env
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/weathersphere
+```
+
+Make sure the environment variable name matches the one used in your backend code.
+
+### 4. Start the backend
+
+```bash
+npm start
+```
+
+If your project uses a different start script, use the appropriate script from `package.json`.
+
+Backend runs at:
+
+```text
+http://localhost:5000
+```
+
+### 5. Start the frontend
 
 Open a new terminal:
 
 ```bash
-cd frontend
+cd client
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Frontend runs at:
 
-## How the Pipeline Works
+```text
+http://localhost:5173
+```
 
-1. User types a city name
-2. Backend converts city → latitude/longitude (Open-Meteo Geocoding)
-3. Backend fetches current weather + 5-day forecast
-4. Backend fetches air quality data
-5. Data is returned to the React frontend
-6. User can save the record to MongoDB
+## API Endpoints
 
-## Candidate
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/weather?city=Mumbai` | Get weather information |
+| POST | `/api/records` | Save a weather record |
+| GET | `/api/records` | Get saved records |
+| PUT | `/api/records/:id` | Update a record |
+| DELETE | `/api/records/:id` | Delete a record |
+| GET | `/api/export/json` | Export records as JSON |
+| GET | `/api/export/csv` | Export records as CSV |
 
-Aryan Patil  
-PM Accelerator Full-Stack Engineering Assessment
+## Database
+
+WeatherSphere uses a local MongoDB database.
+
+**Connection URI:**
+
+```text
+mongodb://127.0.0.1:27017/weathersphere
+```
+
+You can use MongoDB Compass to view the `weathersphere` database and its collections.
+
+## External API
+
+WeatherSphere uses [Open-Meteo](https://open-meteo.com/) for weather forecasts, geocoding, and air quality information.
+
+## Running the Application
+
+Run the backend and frontend in separate terminals. Make sure MongoDB is running before starting the backend.
